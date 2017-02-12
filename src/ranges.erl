@@ -31,5 +31,5 @@ parse_range(<<"[", RangeStartBin, ",", RangeEndBin, "]">>) ->
     {RangeStart, RangeEnd};
 parse_range(<<"()">>) ->
     {};
-parse_range(<<"(", _, ")">>) ->
+parse_range(<<"(", RangeStart, ",", RangeStart, ")">>) ->
     {}.
