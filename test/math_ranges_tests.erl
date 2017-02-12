@@ -24,4 +24,6 @@ excluding_limits_ranges_test_() ->
 
 mixed_limits_ranges_test_() ->
     ?_assertEqual({}, ranges:get_all_points(<<"(]">>)),
-    ?_assertEqual({}, ranges:get_all_points(<<"[)">>)).
+    ?_assertEqual({}, ranges:get_all_points(<<"[)">>)),
+    ?_assertException(error, function_clause, ranges:get_all_points(<<"[0)">>)),
+    ?_assertException(error, function_clause, ranges:get_all_points(<<"(0]">>)).
