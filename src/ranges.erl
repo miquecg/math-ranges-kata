@@ -25,11 +25,20 @@ get_all_points(Range) when is_binary(Range) ->
 parse_range(<<"[]">>) ->
     {};
 parse_range(<<"[", RangeStartBin, ",", RangeEndBin, "]">>) ->
-    RangeStart = binary_to_integer(<<RangeStartBin>>),
-    RangeEnd = binary_to_integer(<<RangeEndBin>>),
-    true = RangeStart =< RangeEnd,
-    {RangeStart, RangeEnd};
+    inclusive_range(binary_to_integer(<<RangeStartBin>>), binary_to_integer(<<RangeEndBin>>));
 parse_range(<<"()">>) ->
     {};
-parse_range(<<"(", RangeStart, ",", RangeStart, ")">>) ->
+parse_range(<<"(", RangeStartBin, ",", RangeEndBin, ")">>) ->
+    exclusive_range(binary_to_integer(<<RangeStartBin>>), binary_to_integer(<<RangeEndBin>>)).
+
+-spec inclusive_range(RangeStart :: integer(), RangeEnd :: integer()) ->
+    {RangeStart :: integer(), RangeEnd :: integer()}.
+inclusive_range(RangeStart, RangeEnd) when RangeStart =< RangeEnd ->
+    {RangeStart, RangeEnd}.
+
+-spec exclusive_range(RangeStart :: integer(), RangeEnd :: integer()) ->
+    {RangeStart :: integer(), RangeEnd :: integer()} | {}.
+exclusive_range(RangeStart, RangeStart) ->
+    {};
+exclusive_range(RangeStart, RangeEnd) when RangeEnd =:= RangeStart + 1 ->
     {}.
