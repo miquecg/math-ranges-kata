@@ -12,4 +12,6 @@ inclusive_limits_ranges_test_() ->
     ?_assertEqual({2, 3, 4, 5, 6, 7}, ranges:get_all_points(<<"[2, 7]">>)).
 
 excluding_limits_ranges_test_() ->
-    ?_assertEqual({}, ranges:get_all_points(<<"()">>)).
+    ?_assertEqual({}, ranges:get_all_points(<<"()">>)),
+    ?_assertEqual({}, ranges:get_all_points(<<"(0)">>)),
+    ?_assertEqual({}, ranges:get_all_points(<<"(1)">>)).
