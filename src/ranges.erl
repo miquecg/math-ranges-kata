@@ -8,6 +8,8 @@
     tuple().
 get_all_points(<<"[]">>) ->
     {};
+get_all_points(<<"()">>) ->
+    {};
 get_all_points(Range) when is_binary(Range) ->
     TrimmedRange = binary:replace(Range, <<" ">>, <<>>),
     {RangeStart, RangeEnd} = parse_range(TrimmedRange),
