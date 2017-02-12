@@ -33,7 +33,11 @@ parse_range(<<"(", RangeStartBin, ",", RangeEndBin, ")">>) ->
 parse_range(<<"(]">>) ->
     {};
 parse_range(<<"[)">>) ->
-    {}.
+    {};
+parse_range(<<"[", RangeStartBin, ",", RangeEndBin, ")">>) ->
+    left_mixed_range(binary_to_integer(<<RangeStartBin>>), binary_to_integer(<<RangeEndBin>>));
+parse_range(<<"(", RangeStartBin, ",", RangeEndBin, "]">>) ->
+    right_mixed_range(binary_to_integer(<<RangeStartBin>>), binary_to_integer(<<RangeEndBin>>)).
 
 -spec inclusive_range(RangeStart :: integer(), RangeEnd :: integer()) ->
     {RangeStart :: integer(), RangeEnd :: integer()}.
@@ -48,3 +52,13 @@ exclusive_range(RangeStart, RangeEnd) when RangeEnd =:= RangeStart + 1 ->
     {};
 exclusive_range(RangeStart, RangeEnd) when RangeEnd > RangeStart ->
     {RangeStart + 1, RangeEnd - 1}.
+
+-spec left_mixed_range(RangeStart :: integer(), RangeEnd :: integer()) ->
+    {RangeStart :: integer(), RangeEnd :: integer()}.
+left_mixed_range(RangeStart, RangeEnd) ->
+    inclusive_range(RangeStart, RangeEnd - 1).
+
+-spec right_mixed_range(RangeStart :: integer(), RangeEnd :: integer()) ->
+    {RangeStart :: integer(), RangeEnd :: integer()}.
+right_mixed_range(RangeStart, RangeEnd) ->
+    inclusive_range(RangeStart + 1, RangeEnd).
