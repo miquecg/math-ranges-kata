@@ -17,4 +17,5 @@ excluding_limits_ranges_test_() ->
     ?_assertEqual({}, ranges:get_all_points(<<"(0)">>)),
     ?_assertEqual({}, ranges:get_all_points(<<"(1)">>)),
     ?_assertEqual({}, ranges:get_all_points(<<"(1,1)">>)),
-    ?_assertEqual({}, ranges:get_all_points(<<"(1,2)">>)).
+    ?_assertEqual({}, ranges:get_all_points(<<"(1,2)">>)),
+    ?_assertEqual({2}, ranges:get_all_points(<<"(1,3)">>)).

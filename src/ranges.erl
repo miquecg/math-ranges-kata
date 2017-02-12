@@ -41,4 +41,6 @@ inclusive_range(RangeStart, RangeEnd) when RangeStart =< RangeEnd ->
 exclusive_range(RangeStart, RangeStart) ->
     {};
 exclusive_range(RangeStart, RangeEnd) when RangeEnd =:= RangeStart + 1 ->
-    {}.
+    {};
+exclusive_range(RangeStart, RangeEnd) when RangeEnd > RangeStart ->
+    {RangeStart + 1, RangeEnd - 1}.
