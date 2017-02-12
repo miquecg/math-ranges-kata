@@ -21,3 +21,7 @@ excluding_limits_ranges_test_() ->
     ?_assertEqual({2}, ranges:get_all_points(<<"(1,3)">>)),
     ?_assertEqual({4, 5}, ranges:get_all_points(<<"(3, 6)">>)),
     ?_assertEqual({3, 4, 5, 6}, ranges:get_all_points(<<"(2, 7)">>)).
+
+mixed_limits_ranges_test_() ->
+    ?_assertEqual({}, ranges:get_all_points(<<"(]">>)),
+    ?_assertEqual({}, ranges:get_all_points(<<"[)">>)).

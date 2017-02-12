@@ -29,7 +29,11 @@ parse_range(<<"[", RangeStartBin, ",", RangeEndBin, "]">>) ->
 parse_range(<<"()">>) ->
     {};
 parse_range(<<"(", RangeStartBin, ",", RangeEndBin, ")">>) ->
-    exclusive_range(binary_to_integer(<<RangeStartBin>>), binary_to_integer(<<RangeEndBin>>)).
+    exclusive_range(binary_to_integer(<<RangeStartBin>>), binary_to_integer(<<RangeEndBin>>));
+parse_range(<<"(]">>) ->
+    {};
+parse_range(<<"[)">>) ->
+    {}.
 
 -spec inclusive_range(RangeStart :: integer(), RangeEnd :: integer()) ->
     {RangeStart :: integer(), RangeEnd :: integer()}.
